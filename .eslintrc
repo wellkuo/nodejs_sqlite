@@ -1,0 +1,22 @@
+{
+    "rules": {
+        "no-console": 0,
+        "linebreak-style": [
+            1,
+            "windows"
+        ],
+        "semi": [
+            2,
+            "always"
+        ]
+    },
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "ecmaFeatures": {
+        "modules": true,
+        "experimentalObjectRestSpread": true
+    },
+    "extends": "eslint:recommended"
+}
