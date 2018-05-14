@@ -89,6 +89,29 @@ class dbFunction {
     });
     console.log('update data end');
   }
+
+  deleteData(table, condition='', callback) {
+    console.log('start to delete data .');
+    let tmpValues = [];
+    let db = new sqlite3.Database(this.fileName);
+    let exeStmt = `DELETE FROM ${table} `;
+    if (condition !== ''){
+      exeStmt = `${exeStmt} WHERE ${condition}`;
+    }
+    db.serialize(function() {
+      console.log(exeStmt);
+      console.log(tmpValues);
+      // var stmt = db.prepare(exeStmt);
+      db.run(exeStmt, tmpValues, (err) => {
+        if (err) {
+          callback(false);
+        } else {
+          callback(true);
+        }
+      });
+    });
+    console.log('delete data end');
+  }
 }
 
 module.exports = dbFunction;

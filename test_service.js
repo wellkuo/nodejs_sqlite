@@ -23,7 +23,33 @@ app.get('/api/maxwell', function (req, res) {
   res.send('Express is excellent!xxxxxx');
 });
 
-app.use('/user', user);
+app.use('/api/user', user);
+
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
 app.listen(3003, function () {
   console.log('Example app is running on port 3003!');}
